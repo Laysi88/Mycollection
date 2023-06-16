@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ book.name }}</h2>
+    <p>Prix : {{ book.price }}€</p>
+    <p>Genre :{{ book.genre }} </p>
+    <p>Auteur :{{ book.author }} </p>
+        <a href="{% url 'update_book' book_id=book.id %}" style="margin-right: 100px;">Modifier</a>
+        <a href="{{ request.META.HTTP_REFERER }}">Retour</a>
+{% endblock content %}

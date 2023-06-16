@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Livres du genre {{ genre.name }}</h2>
+    <ul>
+        {% for livre in page_obj %}
+        <li><a href="{% url 'book_detail' livre.id %}">{{ livre.name }}</a></li>
+        {% empty %}
+        <li>Aucun livre disponible</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+        {% endif %}
+    
+        <span class="current-page">Page {{ page_obj.number }}</span>
+    
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Suivant</a>
+        {% endif %}
+    </div>
+{% endblock content %}

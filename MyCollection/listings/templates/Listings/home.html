@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Acceuil</h2>
+    <p>Bienvenue {{ request.user.username }}</p>
+    <form method="GET" action="{% url 'search_book' %}">
+        <input type="text" name="query" placeholder="Rechercher un livre">
+        <button type="submit">Rechercher</button>
+      </form>
+{% endblock content %}

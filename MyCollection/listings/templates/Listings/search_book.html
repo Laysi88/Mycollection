@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Résultats de la recherche pour {{ query }}</h2>
+
+  {% if books %}
+    <ul>
+      {% for book in books %}
+      <li><a href="{% url 'book_detail' book.id %}">{{ book.name }}</a> <a href="{% url 'delete_book' book.id %}">Supprimer</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Aucun livre trouvé pour {{ query }}.</p>
+  {% endif %}
+{% endblock %}

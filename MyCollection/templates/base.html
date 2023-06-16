@@ -1,0 +1,35 @@
+{% load static %}
+<html>
+    <head>
+        <title>MyCollection</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'app.css' %}">
+    </head>
+    <body>
+            <h1 class="my-collection"><a href="{% url 'home' %}">MyCollection</a></h1>
+            <div class="sidebar">
+            {% if user.is_authenticated %}
+                
+                <ul class="main-menu">
+                    <p><a href="{% url 'home' %}">Accueil</a></p>
+                <li>
+                <a href="#">Ma Collection</a>
+                <ul class="sub-menu">
+                <li><a href="{% url 'show-books' %}">Livres</a></li>
+                <li><a href="{% url 'liste_genre' %}">Genres</a></li>
+                </ul>
+                </li>
+                <p><a href="{% url 'password_change' %}">Changer le mot de passe</a></p>
+                <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+                </ul>  
+                
+            {% endif %}
+            </div>
+            <div class="main">
+                {% block content %}{% endblock content %}
+            </div>
+        
+    </body>
+</html>

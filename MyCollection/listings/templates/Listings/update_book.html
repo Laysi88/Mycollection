@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Modifier le livre : {{ book.name }}</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <input type="submit" value="Enregistrer">
+    </form>
+    <a href="{{ request.META.HTTP_REFERER }}">Retour</a>
+{% endblock content %}
