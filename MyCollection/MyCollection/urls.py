@@ -35,7 +35,6 @@ urlpatterns = [
         ),
         name="login",
     ),
-    path("logout/", LogoutView.as_view(), name="logout"),
     path("signup/", Authentication.views.signup_page, name="signup"),
     path(
         "change-password/",
