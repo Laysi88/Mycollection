@@ -48,7 +48,7 @@ def liste_genre(request):
 
 @login_required
 def livres_by_genre(request, genre_id):
-    genre = Genre.objects.get(id=genre_id)
+    genre = get_object_or_404(Genre, id=genre_id)
     livres = Book.objects.filter(genre=genre, user=request.user).order_by("name")
     paginator = Paginator(livres, 2)
     page_number = request.GET.get("page")
@@ -86,7 +86,7 @@ def book_detail(request, book_id):
 
 @login_required
 def update_book(request, book_id):
-    book = Book.objects.get(id=book_id, user=request.user)
+    book = get_object_or_404(Book, id=book_id, user=request.user)
 
     if request.method == "POST":
         form = BookForm(request.POST, instance=book)
