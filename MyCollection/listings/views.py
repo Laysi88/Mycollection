@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from .models import Book, Genre
 from .forms import BookForm
@@ -27,11 +28,13 @@ def show_books(request):
 @login_required
 def add_book(request):
     if request.method == "POST":
-        form = BookForm(request.POST)
+        form = BookForm(request.POST, request.FILES)
         if form.is_valid():
             book = form.save(commit=False)
             book.user = request.user
             book.save()
+            if "picture" in request.FILES:
+                book.picture = request.FILES["picture"]
             return redirect("show-books")
     else:
         form = BookForm()
@@ -50,11 +53,17 @@ def liste_genre(request):
 def livres_by_genre(request, genre_id):
     genre = get_object_or_404(Genre, id=genre_id)
     livres = Book.objects.filter(genre=genre, user=request.user).order_by("name")
+    if genre:
+        total_price = Book.calculate_total_price(request.user, genre=genre)
+    else:
+        total_price = Book.calculate_total_price(request.user)
     paginator = Paginator(livres, 2)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "Listings/livres_by_genre.html", {"genre": genre, "page_obj": page_obj}
+        request,
+        "Listings/livres_by_genre.html",
+        {"genre": genre, "page_obj": page_obj, "total_price": total_price},
     )
 
 

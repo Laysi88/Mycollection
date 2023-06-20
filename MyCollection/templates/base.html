@@ -10,7 +10,7 @@
     <body>
             <h1 class="my-collection"><a href="{% url 'home' %}">MyCollection</a></h1>
             <div class="sidebar">
-            {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                 
                 <ul class="main-menu">
                     <p><a href="{% url 'home' %}">Accueil</a></p>

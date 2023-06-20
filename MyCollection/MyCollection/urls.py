@@ -24,6 +24,8 @@ from django.contrib.auth.views import (
     PasswordChangeView,
     PasswordChangeDoneView,
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -64,3 +66,4 @@ urlpatterns = [
     ),
     path("books/<int:book_id>/update/", Listings.views.update_book, name="update_book"),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
